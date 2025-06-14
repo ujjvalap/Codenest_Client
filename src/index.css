@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Slow Rain Effect */
+@keyframes rain {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0.6;
+  }
+}
+
+.rain-container {
+  position: relative;
+  overflow: hidden;
+  height: 100vh; /* Full-screen height */
+  width: 100%;
+}
+
+.rain-container::before,
+.rain-container::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  width: 2px;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: rain linear infinite;
+}
+
+/* Individual drop styles with varied speeds and positions */
+.rain-container::before {
+  left: 20%;
+  animation-duration: 3s;
+}
+
+.rain-container::after {
+  left: 80%;
+  animation-duration: 2.7s;
+}
+
+/* Additional drops with classes for variation */
+.rain-container .drop-1,
+.rain-container .drop-2,
+.rain-container .drop-3,
+.rain-container .drop-4 {
+  content: "";
+  position: absolute;
+  top: -100%;
+  width: 2px;
+  height: 200%;
+  background: rgba(237, 237, 240, 0.3);
+  animation: rain linear infinite;
+}
+
+/* Set different positions and durations for each drop */
+.rain-container .drop-1 {
+  left: 30%;
+  animation-duration: 4s;
+}
+.rain-container .drop-2 {
+  left: 60%;
+  animation-duration: 4.5s;
+}
+.rain-container .drop-3 {
+  left: 45%;
+  animation-duration: 3.5s;
+}
+.rain-container .drop-4 {
+  left: 75%;
+  animation-duration: 5s;
+}
+
+/* CSS Animations */
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-in;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Custom Scrollbar Styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4f46e5; /* Indigo */
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #4338ca; /* Darker Indigo */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #e0e7ff; /* Light Indigo */
+  border-radius: 4px;
+}

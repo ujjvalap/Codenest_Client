@@ -1,0 +1,173 @@
+/* === MAIN BRANCH STRUCTURE === */
+.branch-container {
+  position: absolute;
+  top: 60%;
+  left: 450px;
+  transform: translateY(-50%);
+}
+
+/* === MAIN BRANCH STRUCTURE === */
+.branch-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.straight-line {
+  width: 80px;
+  height: 2px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  top: 50%;
+  left: 100%; /* Right edge of the button */
+  transform: translateY(-50%);
+  transform-origin: left;
+  opacity: 0;
+  animation: drawLine 0.4s forwards;
+  z-index: 0;
+}
+
+/* Branch Lines */
+.branch-line {
+  width: 100px;
+  height: 2px;
+  background-color: white;
+  position: absolute;
+  transform-origin: left;
+  opacity: 0;
+  animation: drawLine 0.4s forwards;
+}
+
+.admin-line {
+  top: -4px;
+  transform: rotate(-35deg);
+  animation-delay: 0.2s;
+}
+
+.student-line {
+  top: 6px;
+  transform: rotate(35deg);
+  animation-delay: 0.2s;
+}
+
+/* Role Buttons */
+.role-button {
+  position: absolute;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.admin-btn {
+  top: -85px;
+  left: 80px;
+  background-color: #16a34a;
+  color: white;
+  animation-delay: 0.4s;
+}
+
+.student-btn {
+  top: 45px;
+  left: 80px;
+  background-color: #7e22ce;
+  color: white;
+  animation-delay: 0.4s;
+}
+
+/* Child Branch Containers */
+.admin-branch-container {
+  position: absolute;
+  left: 160px;
+  top: -65px;
+}
+
+.student-branch-container {
+  position: absolute;
+  left: 170px;
+  top: -65px;
+}
+
+.student-offset {
+  top: 65px;
+}
+
+/* Child Lines */
+.child-line {
+  width: 60px;
+  height: 2px;
+  background-color: white;
+  position: absolute;
+  opacity: 0;
+  animation: drawLine 0.4s forwards;
+}
+
+.left-child {
+  top: -20px;
+  transform: rotate(-25deg);
+  animation-delay: 0.3s;
+}
+
+.right-child {
+  top: 25px;
+  transform: rotate(25deg);
+  animation-delay: 0.3s;
+}
+
+/* Child Buttons */
+.child-button {
+  position: absolute;
+  height: 40px;
+  width: 100px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  background-color: #3b82f6;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.child-button:hover {
+  transform: scale(1.05);
+  background-color: #2563eb;
+}
+
+.left-child-btn {
+  top: -45px;
+  left: 60px;
+  animation-delay: 0.5s;
+}
+
+.right-child-btn {
+  top: 45px;
+  left: 60px;
+  animation-delay: 0.5s;
+}
+
+/* === Animations === */
+@keyframes drawLine {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 80px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
