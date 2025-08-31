@@ -1,5 +1,7 @@
 // export const server = import.meta.env.VITE_SERVER || "http://localhost:5000";
-export const server = import.meta.env.VITE_SERVER || "https://codenest-server-chi.vercel.app"
+export const server = (import.meta.env.VITE_SERVER || "http://localhost:5000").replace(/\/$/, "");
+
+
 
 export const config = {
   withCredentials: true,
