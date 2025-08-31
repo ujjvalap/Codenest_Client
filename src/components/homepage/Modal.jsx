@@ -11,6 +11,7 @@ const Modal = ({ children, onClose }) => {
           className="absolute top-3 right-3 bg-gray-200 p-2 rounded-full text-gray-600 hover:bg-gray-300 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 shadow-sm"
           aria-label="Close Modal"
         >
+          
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"

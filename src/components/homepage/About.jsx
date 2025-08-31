@@ -1,16 +1,19 @@
 import React from "react";
+import HomeNavbar from "./HomeNavbar";
 
 const About = () => {
   return (
     <div className="min-h-screen pt-24 pb-8 px-8 bg-gradient-to-b from-gray-900 via-black to-gray-950 text-gray-300">
       {/* Hero Section */}
+      <HomeNavbar/>
+
       <section className="mb-12 text-center animate-fadeIn">
         <h1 className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 drop-shadow-lg mb-4">
           Welcome to Codenest
         </h1>
         <p className="text-xl text-gray-400 max-w-4xl mx-auto">
           Your go-to platform for competitive <span className="text-teal-400 font-semibold">Coding Contests</span> and engaging <span className="text-yellow-400 font-semibold">Quizzes</span>.  
-          Whether you're a student looking to sharpen your coding skills or an educator streamlining assessments, **Codenest** has you covered.
+          Whether youre a student looking to sharpen your coding skills or an educator streamlining assessments, **Codenest** has you covered.
         </p>
       </section>
 
@@ -51,8 +54,8 @@ const About = () => {
       <section className="my-12 bg-gray-800 bg-opacity-50 p-8 rounded-lg animate-fadeIn">
         <h2 className="text-4xl font-semibold text-white mb-4">About Codenest</h2>
         <p className="text-lg leading-relaxed text-gray-400">
-          Codenest is a web-based platform designed to **simplify coding  
-          assessments** and enhance learning through challenges. Our platform  
+          Codenest is a web-based platform designed to simplify coding  
+          assessments and enhance learning through challenges. Our platform  
           helps educators manage and evaluate coding exams while giving  
           students a fun, engaging space to practice their skills.
         </p>
@@ -101,8 +104,8 @@ const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-gray-700 p-6 shadow-md rounded-lg transition-transform transform hover:scale-105 hover:bg-gray-600">
             <p className="text-lg text-gray-300">
-              "Codenest has completely transformed the way we conduct our coding assessments.  
-              It's intuitive and saves so much time!"
+              Codenest has completely transformed the way we conduct our coding assessments.  
+              Its intuitive and saves so much time!
             </p>
             <p className="text-right font-semibold mt-2 text-yellow-400">
               - XYZ, Educator
@@ -110,8 +113,8 @@ const About = () => {
           </div>
           <div className="bg-gray-700 p-6 shadow-md rounded-lg transition-transform transform hover:scale-105 hover:bg-gray-600">
             <p className="text-lg text-gray-300">
-              "As a student, I love how easy it is to navigate the tests on Codenest.  
-              It takes the stress out of coding exams!"
+              As a student, I love how easy it is to navigate the tests on Codenest.  
+              It takes the stress out of coding exams!
             </p>
             <p className="text-right font-semibold mt-2 text-yellow-400">
               - Pawan Tiwari, Student

@@ -5,10 +5,11 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 
 // Components
 import NotProtectedLayout from "./components/auth/NotProtectedLayout";
-import ProtectRoute from "./components/auth/ProtectRoute";3
+import ProtectRoute from "./components/auth/ProtectRoute";
 import UserProtectedLayout from "./components/auth/UserProtectedLayout";
 import ChallengeOverviewPage from "./components/CreateChallenge/ChallengeOverviewPage";
 import About from "./components/homepage/About";
+import ContactPage from "./components/homepage/Contact";
 import Body from "./components/homepage/Body";
 import LoadingSpinner from "./components/LoadingSpinner";
 import UserLogin from "./components/user/UserLogin";
@@ -119,8 +120,10 @@ function App() {
           <Route element={<NotProtectedLayout />}>
             <Route path="/" element={<Body />} />
             <Route path="/about" element={<About />} />
+            <Route path='/contact' element={< ContactPage/>} />
             <Route path="/host-login" element={<AdminLogin />} />
             <Route path="/user-login" element={<UserLogin />} />
+            <Route path="/chatbot" element={<Chatbot />} />
           </Route>
         </Route>
       </Route>
@@ -153,3 +156,6 @@ export default function AppWrapper() {
     </BrowserRouter>
   );
 }
+
+
+
