@@ -207,7 +207,7 @@ import { hostExists, userExists } from "../../redux/reducers/auth";
 import { server, config } from "../../constants/config";
 
 // Banner images
-const backgroundBanners = ["images/bg1.jpg", "images/bg2.jpg"];
+const backgroundBanners = ["images/bg1.jpg", "images/bg4.jpg"];
 
 const Body = () => {
   const { host, user } = useSelector((state) => state.auth || {});
