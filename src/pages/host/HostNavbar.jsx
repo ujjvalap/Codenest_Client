@@ -1,3 +1,144 @@
+// import axios from "axios";
+// import React, { useState } from "react";
+// import toast from "react-hot-toast";
+// import { FaBars, FaHome, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
+// import { useDispatch, useSelector } from "react-redux";
+// import { Link } from "react-router-dom";
+// import { config, server } from "../../constants/config";
+// import { hostNotExists } from "../../redux/reducers/auth";
+
+// function HostNavbar() {
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [isMenuOpen, setIsMenuOpen] = useState(false);
+//   const dispatch = useDispatch();
+
+//   const { host } = useSelector((state) => state.auth);
+
+//   const handleLogout = async (e) => {
+//     e.preventDefault();
+//     setIsLoading(true);
+
+//     try {
+//       const { data } = await axios.post(`${server}/admin/logout`, {}, config);
+//       if (data.success) {
+//         dispatch(hostNotExists());
+//         toast.success(data.message);
+//       } else {
+//         throw new Error(data.message);
+//       }
+//     } catch (error) {
+//       toast.error(error?.response?.data?.message || "Something Went Wrong");
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   return (
+//     <>
+//       {/* Navbar */}
+//       <nav className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-md">
+//         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+//           {/* Logo */}
+//           <Link to="/" className="flex items-center space-x-2">
+//             <img
+//               src="/Logo.png"
+//               alt="CodeNest"
+//               className="h-12 w-auto drop-shadow-lg transform transition-transform duration-300 hover:scale-105"
+//             />
+//             <span className="text-2xl font-bold tracking-wide hidden sm:block">
+//               CodeNest
+//             </span>
+//           </Link>
+
+//           {/* Desktop Links */}
+//           <div className="hidden sm:flex items-center space-x-6">
+//             <Link
+//               to="/"
+//               className="flex items-center gap-2 px-4 py-2 text-lg font-medium rounded-lg transition-all duration-300 hover:text-yellow-300 hover:bg-white/20"
+//             >
+//               <FaHome /> Dashboard
+//             </Link>
+
+//             <button
+//               onClick={handleLogout}
+//               className="flex items-center gap-2 px-4 py-2 text-lg font-medium rounded-lg bg-red-600 hover:bg-red-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+//               disabled={isLoading}
+//             >
+//               {isLoading ? (
+//                 <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+//               ) : (
+//                 <>
+//                   <FaSignOutAlt /> Logout
+//                 </>
+//               )}
+//             </button>
+//           </div>
+
+//           {/* Mobile Menu Button */}
+//           <button
+//             className="sm:hidden flex items-center px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+//             onClick={() => setIsMenuOpen(!isMenuOpen)}
+//           >
+//             <FaBars size={24} />
+//           </button>
+//         </div>
+
+//         {/* Mobile Dropdown Menu */}
+//         {isMenuOpen && (
+//           <div className="sm:hidden bg-indigo-800 text-white py-2 space-y-2">
+//             <Link
+//               to="/"
+//               className="flex items-center gap-2 px-6 py-2 text-lg font-medium transition-all duration-300 hover:text-yellow-300 hover:bg-white/20"
+//             >
+//               <FaHome /> Dashboard
+//             </Link>
+
+//             <button
+//               onClick={handleLogout}
+//               className="flex w-full items-center gap-2 px-6 py-2 text-lg font-medium bg-red-600 hover:bg-red-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+//               disabled={isLoading}
+//             >
+//               {isLoading ? (
+//                 <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+//               ) : (
+//                 <>
+//                   <FaSignOutAlt /> Logout
+//                 </>
+//               )}
+//             </button>
+
+//             {/* Host Profile Inside Mobile Menu */}
+//             {host && (
+//               <div className="border-t pt-4">
+//                 <div className="flex items-center space-x-4">
+//                   {host?.picture ? (
+//                     <img
+//                       src={host.picture}
+//                       alt="User"
+//                       className="w-10 h-10 rounded-full border-2 border-gray-400"
+//                     />
+//                   ) : (
+//                     <FaUserCircle className="text-gray-600 text-3xl" />
+//                   )}
+//                   <div>
+//                     <p className="text-sm font-semibold">{host.username}</p>
+//                     <p className="text-xs text-gray-500">{host.email}</p>
+//                   </div>
+//                 </div>
+//               </div>
+//             )}
+//           </div>
+//         )}
+//       </nav>
+//     </>
+//   );
+// }
+
+// export default HostNavbar;
+
+
+
+
 import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -17,7 +158,6 @@ function HostNavbar() {
   const handleLogout = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
       const { data } = await axios.post(`${server}/admin/logout`, {}, config);
       if (data.success) {
@@ -35,8 +175,8 @@ function HostNavbar() {
 
   return (
     <>
-      {/* Navbar */}
-      <nav className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-md">
+      {/* Dark Navbar */}
+      <nav className="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-900 text-gray-100 shadow-lg">
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
@@ -45,7 +185,7 @@ function HostNavbar() {
               alt="CodeNest"
               className="h-12 w-auto drop-shadow-lg transform transition-transform duration-300 hover:scale-105"
             />
-            <span className="text-2xl font-bold tracking-wide hidden sm:block">
+            <span className="text-2xl font-bold tracking-wide hidden sm:block text-slate-200">
               CodeNest
             </span>
           </Link>
@@ -54,18 +194,20 @@ function HostNavbar() {
           <div className="hidden sm:flex items-center space-x-6">
             <Link
               to="/"
-              className="flex items-center gap-2 px-4 py-2 text-lg font-medium rounded-lg transition-all duration-300 hover:text-yellow-300 hover:bg-white/20"
+              className="flex items-center gap-2 px-4 py-2 text-lg font-medium rounded-lg
+                transition-all duration-300 hover:text-yellow-400 hover:bg-slate-800"
             >
               <FaHome /> Dashboard
             </Link>
-
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-lg font-medium rounded-lg bg-red-600 hover:bg-red-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-4 py-2 text-lg font-medium rounded-lg
+                bg-red-700 hover:bg-red-900 transition-all duration-300
+                disabled:opacity-40 disabled:cursor-not-allowed"
               disabled={isLoading}
             >
               {isLoading ? (
-                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                <span className="w-4 h-4 border-2 border-gray-100 border-t-transparent rounded-full animate-spin"></span>
               ) : (
                 <>
                   <FaSignOutAlt /> Logout
@@ -76,53 +218,54 @@ function HostNavbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className="sm:hidden flex items-center px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+            className="sm:hidden flex items-center px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <FaBars size={24} />
           </button>
         </div>
 
-        {/* Mobile Dropdown Menu */}
+        {/* Mobile Dropdown Menu (pure dark styling) */}
         {isMenuOpen && (
-          <div className="sm:hidden bg-indigo-800 text-white py-2 space-y-2">
+          <div className="sm:hidden bg-gradient-to-bl from-indigo-950 via-gray-900 to-slate-950 text-gray-100 py-2 space-y-2 shadow-xl">
             <Link
               to="/"
-              className="flex items-center gap-2 px-6 py-2 text-lg font-medium transition-all duration-300 hover:text-yellow-300 hover:bg-white/20"
+              className="flex items-center gap-2 px-6 py-2 text-lg font-medium transition-all duration-300
+                hover:text-yellow-400 hover:bg-slate-800"
             >
               <FaHome /> Dashboard
             </Link>
-
             <button
               onClick={handleLogout}
-              className="flex w-full items-center gap-2 px-6 py-2 text-lg font-medium bg-red-600 hover:bg-red-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex w-full items-center gap-2 px-6 py-2 text-lg font-medium bg-red-700
+                hover:bg-red-900 transition-all duration-300 rounded-lg
+                disabled:opacity-40 disabled:cursor-not-allowed"
               disabled={isLoading}
             >
               {isLoading ? (
-                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                <span className="w-4 h-4 border-2 border-gray-100 border-t-transparent rounded-full animate-spin"></span>
               ) : (
                 <>
                   <FaSignOutAlt /> Logout
                 </>
               )}
             </button>
-
             {/* Host Profile Inside Mobile Menu */}
             {host && (
-              <div className="border-t pt-4">
+              <div className="border-t border-indigo-900 pt-4">
                 <div className="flex items-center space-x-4">
                   {host?.picture ? (
                     <img
                       src={host.picture}
                       alt="User"
-                      className="w-10 h-10 rounded-full border-2 border-gray-400"
+                      className="w-10 h-10 rounded-full border-2 border-slate-700"
                     />
                   ) : (
-                    <FaUserCircle className="text-gray-600 text-3xl" />
+                    <FaUserCircle className="text-gray-500 text-3xl" />
                   )}
                   <div>
-                    <p className="text-sm font-semibold">{host.username}</p>
-                    <p className="text-xs text-gray-500">{host.email}</p>
+                    <p className="text-sm font-semibold text-indigo-100">{host.username}</p>
+                    <p className="text-xs text-gray-400">{host.email}</p>
                   </div>
                 </div>
               </div>
