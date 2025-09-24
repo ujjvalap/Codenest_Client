@@ -410,13 +410,13 @@ function HostDashboard() {
       </div>
 
       {/* Floating Add Problem Button */}
-      {/* <button
+      <button
         onClick={handleCreateContest}
         className="fixed bottom-8 right-8 bg-indigo-600 text-white py-3 px-4 rounded-full shadow-lg hover:bg-indigo-700 transition duration-300 flex items-center gap-2"
       >
         <FaPlus />
         Create New Contest
-      </button> */}
+      </button>
 
       {/* ContestSetup Panel */}
       {showContestSetup && (
@@ -432,3 +432,6 @@ function HostDashboard() {
 }
 
 export default HostDashboard;
+
+
+

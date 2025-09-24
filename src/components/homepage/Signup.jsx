@@ -176,7 +176,7 @@ const Signup = ({ userType, onSubmit, toggleForm }) => {
   return (
 
     
-    <div className="flex items-center justify-center w-full">
+    <div className="flex items-center justify-center w-full   ">
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
@@ -252,6 +252,7 @@ const Signup = ({ userType, onSubmit, toggleForm }) => {
             <p className="text-red-500 text-sm mt-1">{errors.password}</p>
           )}
         </div>
+          
 
         {/* Submit Button */}
         <button
