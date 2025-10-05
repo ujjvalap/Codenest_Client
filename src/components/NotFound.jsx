@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
 import React from 'react';
+import { motion } from 'framer-motion';
 import { FaExclamationTriangle } from 'react-icons/fa'; // Example icon
 import { Link } from 'react-router-dom';
 
@@ -33,7 +33,7 @@ const NotFound = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          Oops! The page you're looking for doesn't exist.
+          Oops! The page you are looking for does not  exist.
         </motion.p>
 
         
