@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 // Components
 import NotProtectedLayout from "./components/auth/NotProtectedLayout";
 import ProtectRoute from "./components/auth/ProtectRoute";
-import UserProtectedLayout from "./components/auth/UserProtectedLayout";
+// import UserProtectedLayout from "./components/auth/UserProtectedLayout";
 import ChallengeOverviewPage from "./components/CreateChallenge/ChallengeOverviewPage";
 import About from "./components/homepage/About";
 import ContactPage from "./components/homepage/Contact";
