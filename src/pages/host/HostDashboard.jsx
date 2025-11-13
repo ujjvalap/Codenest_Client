@@ -127,8 +127,11 @@ function HostDashboard() {
   if (challengeLoading || batchesLoading) return <LoadingSpinner />;
 
   // ---------- Chart Data ----------
+  // const contestData = myChallengesData?.challenges || [];
+  // const batchData = myBatchesData?.batches || [];
   const contestData = myChallengesData?.challenges || [];
   const batchData = myBatchesData?.batches || [];
+
 
   const chartLineData = {
     labels: contestData.map((c) => moment(c.startTime).format("DD MMM")),
@@ -244,7 +247,7 @@ function HostDashboard() {
               <button
                 onClick={() => {
                   dispatch(setSelectedTab("contests"));
-                  setShowContestSetup(true);
+                  setShowContestSetup(false);
                 }}
                 className="mt-4 bg-indigo-600 text-white py-2 px-4 rounded-md shadow hover:bg-indigo-700 transition duration-200 w-full"
               >
@@ -267,7 +270,7 @@ function HostDashboard() {
               <button
                 onClick={() => {
                   dispatch(setSelectedTab("quizzes"));
-                  setShowContestSetup(true);
+                  setShowContestSetup(false);
                 }}
                 className="mt-4 bg-indigo-600 text-white py-2 px-4 rounded-md shadow hover:bg-indigo-700 transition duration-200 w-full"
               >
@@ -397,3 +400,13 @@ function HostDashboard() {
 }
 
 export default HostDashboard;
+
+
+
+
+
+
+
+
+
+
