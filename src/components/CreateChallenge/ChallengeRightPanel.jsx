@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { Editor } from "@monaco-editor/react";
 import React from "react";
+import { Editor } from "@monaco-editor/react";
+
 
 function ChallengeRightPanel({
   problemDetails,

@@ -24,7 +24,7 @@ const Footer = () => {
             <a href="#home" className="text-sm hover:underline focus:underline focus:outline-none">Home</a>
             <a href="#about" className="text-sm hover:underline focus:underline focus:outline-none">About</a>
             <a href="#courses" className="text-sm hover:underline focus:underline focus:outline-none">Courses</a>
-            <a href="#contact" className="text-sm hover:underline focus:underline focus:outline-none">Contact</a>
+            <a href="/#contact" className="text-sm hover:underline focus:underline focus:outline-none">Contact</a>
             <a href="#blog" className="text-sm hover:underline focus:underline focus:outline-none">Blog</a>
           </nav>
 
@@ -42,7 +42,7 @@ const Footer = () => {
 
             {/* Social Icons */}
             <div className="flex space-x-5 mt-6">
-              <a href="https://github.com/tulsirampathe" aria-label="Github" className="text-gray-400 hover:text-white transition">
+              <a href="https://github.com/ujjvalap" aria-label="Github" className="text-gray-400 hover:text-white transition">
                 <FaGithub size={20} />
               </a>
               <a href="https://www.linkedin.com/in/tulsiram-pathe-03b7b9258/" aria-label="LinkedIn" className="text-gray-400 hover:text-white transition">

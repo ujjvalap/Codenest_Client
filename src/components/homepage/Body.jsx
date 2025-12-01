@@ -195,6 +195,7 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import HomeNavbar from "./HomeNavbar";
+// import Home from "./home";
 import Login from "./Login";
 import Signup from "./Signup";
 import Modal from "./Modal";
@@ -335,7 +336,7 @@ const Body = () => {
 
       {/* === Content === */}
       <div className="relative z-10">
-        <HomeNavbar />
+        <HomeNavbar/>
 
         {!host && !user && (
           <main className="pt-28 md:pt-36 max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between min-h-[80vh]">
