@@ -65,6 +65,7 @@ function HostDashboard() {
     dispatch(setQuestionID(null));
   }, [dispatch]);
 
+// Debug issue 
   const { isLoading: challengeLoading, data: myChallengesData } =
     useMyChallengesQuery("");
   const { isLoading: batchesLoading, data: myBatchesData } =
@@ -127,12 +128,19 @@ function HostDashboard() {
   if (challengeLoading || batchesLoading) return <LoadingSpinner />;
 
   // ---------- Chart Data ----------
-  // const contestData = myChallengesData?.challenges || [];
-  // const batchData = myBatchesData?.batches || [];
-  const contestData = myChallengesData?.challenges || [];
-  const batchData = myBatchesData?.batches || [];
+  const contestData = (myChallengesData?.challenges || []).filter(
+  (c) => c.createdBy === host._id
+);
 
+const batchData = (myBatchesData?.batches || []).filter(
+  (b) => b.createdBy === host._id
+);
 
+// count the chart data 
+const totalQuizzes = batchData.reduce(
+  (sum, batch) => sum + (batch.quizzes?.length || 0),
+  0
+);
   const chartLineData = {
     labels: contestData.map((c) => moment(c.startTime).format("DD MMM")),
     datasets: [
@@ -400,10 +408,6 @@ function HostDashboard() {
 }
 
 export default HostDashboard;
-
-
-
-
 
 
 

@@ -270,13 +270,15 @@ const api = createApi({
 
     // Quiz APIs
 
-    myBatches: builder.query({
-      query: () => ({
-        url: "api/batches/",
-        credentials: "include",
-      }),
-      providesTags: ["Batches"],
-    }),
+
+myBatches: builder.query({
+  query: () => ({
+    url: "api/batches",
+    credentials: "include",
+  }),
+  providesTags: ["Batches"],
+}),
+
 
     // Create a new batch
     createBatche: builder.mutation({
@@ -354,15 +356,18 @@ const api = createApi({
       providesTags: ["Quiz"],
     }),
 
-    createQuiz: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/api/quizzes/${id}`,
-        method: "POST",
-        credentials: "include",
-        body: data,
-      }),
-      invalidatesTags: ["Batch"],
-    }),
+
+createQuiz: builder.mutation({
+  query: ({ id, data }) => ({
+    url: `/api/quizzes/${id}`,
+    method: "POST",
+    credentials: "include",
+    body: data,
+  }),
+  invalidatesTags: ["Batches"],
+}),
+
+
 
     // Edit quiz data
     editQuizData: builder.mutation({
@@ -382,7 +387,7 @@ const api = createApi({
         method: "DELETE",
         credentials: "include",
       }),
-      invalidatesTags: ["Batch"],
+      invalidatesTags: ["Batch", "Batches"],
     }),
 
     addQuestionToQuizWithAI: builder.mutation({
