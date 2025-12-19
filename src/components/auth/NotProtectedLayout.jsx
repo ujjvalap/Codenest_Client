@@ -21,7 +21,7 @@ function NotProtectedLayout() {
       {/* Additional Sections */}
       <Features />
 
-      {/* <Team/> */}
+      <Team/>
 {/* 
       <Chatbot/> */}
     

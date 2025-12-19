@@ -1,6 +1,516 @@
+// /* eslint-disable react/prop-types */
+// import moment from "moment";
+// import React, { useState } from "react";
+// import {
+//   FaCalendarAlt,
+//   FaChartLine,
+//   FaCheckCircle,
+//   FaFileExcel,
+//   FaPlus,
+//   FaTasks,
+//   FaTimesCircle,
+//   FaUserGraduate,
+//   FaUserPlus,
+//   FaUsers,
+// } from "react-icons/fa";
+// import { useDispatch, useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+// import * as XLSX from "xlsx";
+// import LoadingSpinner from "../../components/LoadingSpinner";
+// import BatchHeader from "../../components/quiz components/BatchHeader";
+// import useMutationToast from "../../hooks/useMutationToast";
+// import {
+//   useBatchDataQuery,
+//   useBatchReqestsMutation,
+//   useStudentQuizPerformanceQuery,
+// } from "../../redux/api/api";
+// import { setQuizID } from "../../redux/reducers/auth";
+// import ChallengeSetup from "../host/ChallengeSetup";
+
+// const sections = [
+//   { name: "Batch Quizzes", icon: <FaUserGraduate size={20} /> },
+//   { name: "Total Students", icon: <FaUsers size={20} /> },
+//   { name: "Pending Requests", icon: <FaUserPlus size={20} /> },
+//   { name: "Quiz Performance", icon: <FaChartLine size={20} /> },
+// ];
+
+// const BatchSidebar = ({ activeSection, setActiveSection, sections }) => (
+//   <div className="w-full overflow-x-hidden px-4 mb-6">
+//     <div className="overflow-x-auto lg:overflow-hidden">
+//       <div className="flex justify-center gap-4 min-w-max">
+//         {sections.map((section) => (
+//           <button
+//             key={section.name}
+//             onClick={() => setActiveSection(section.name)}
+//             className={`px-6 py-3 flex items-center gap-2 rounded-lg text-white font-semibold transition-all shadow-lg whitespace-nowrap ${
+//               activeSection === section.name
+//                 ? "bg-blue-700 scale-105"
+//                 : "bg-blue-500 hover:bg-blue-600"
+//             }`}
+//           >
+//             {section.icon} {section.name}
+//           </button>
+//         ))}
+//       </div>
+//     </div>
+//   </div>
+// );
+
+// const BatchQuizzes = ({ quizzes, handleQuiz, handleCreateQuiz }) => {
+//   return (
+//     <div>
+//       {/* Title */}
+//       <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
+//         Batch Quizzes
+//       </h2>
+
+//       {/* Quiz Container */}
+//       <div className="scrollbar-thin scrollbar-thumb-indigo-300">
+//         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+//           {/* Create New Quiz Card */}
+//           <div
+//             className="relative bg-gradient-to-br from-indigo-100 to-indigo-50 border-2 border-dashed border-indigo-400 rounded-lg shadow-lg p-6 flex flex-col items-center justify-center cursor-pointer 
+//                      hover:shadow-xl hover:bg-indigo-100 transition-all duration-300 transform hover:scale-105 active:scale-95 overflow-hidden"
+//             onClick={handleCreateQuiz}
+//           >
+//             <div className="bg-indigo-200 p-4 rounded-full flex items-center justify-center mb-3 transition-all duration-300 hover:bg-indigo-300 shadow-md">
+//               <FaPlus className="text-indigo-700 text-5xl" />
+//             </div>
+//             <p className="text-indigo-700 font-semibold text-lg">
+//               Create New Quiz
+//             </p>
+//           </div>
+
+//           {/* List of Quizzes */}
+//           {quizzes.map((quiz) => (
+//             <div
+//               key={quiz._id}
+//               className="relative bg-white border border-indigo-200 rounded-lg shadow-md p-5 hover:shadow-lg transition-all duration-300 flex flex-col text-center overflow-hidden"
+//             >
+//               {/* Quiz Name */}
+//               <button onClick={() => handleQuiz(quiz._id)} className="w-full">
+//                 <h4 className="text-lg font-semibold text-indigo-700">
+//                   {quiz?.name}
+//                 </h4>
+
+//                 {/* Start & End Time */}
+//                 <div className="mt-3 space-y-2 text-gray-600 text-sm">
+//                   <p className="flex items-center justify-center">
+//                     <FaCalendarAlt className="mr-2 text-indigo-600" />
+//                     <span>
+//                       <strong>Start:</strong>{" "}
+//                       {moment(quiz?.startTime).format("DD MMM YYYY, hh:mm A")}
+//                     </span>
+//                   </p>
+//                   <p className="flex items-center justify-center">
+//                     <FaCalendarAlt className="mr-2 text-indigo-600" />
+//                     <span>
+//                       <strong>End:</strong>{" "}
+//                       {moment(quiz?.endTime).format("DD MMM YYYY, hh:mm A")}
+//                     </span>
+//                   </p>
+//                 </div>
+
+//                 {/* Problems & Participants */}
+//                 <div className="flex items-center justify-between mt-4 text-gray-700 text-sm">
+//                   <p className="flex items-center">
+//                     <FaTasks className="mr-2 text-blue-500" />
+//                     <span>{quiz?.questions?.length} Problems</span>
+//                   </p>
+//                   <p className="flex items-center">
+//                     <FaUsers className="mr-2 text-green-500" />
+//                     <span>{quiz.participants?.length} Participants</span>
+//                   </p>
+//                 </div>
+//               </button>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// const TotalStudents = ({ students }) => {
+//   return (
+//     <div>
+//       <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">
+//         Total Students: {students.length}
+//       </h2>
+
+//       {students.length === 0 ? (
+//         <p className="text-gray-500 text-center">No Student in this Batch.</p>
+//       ) : (
+//         <div className="overflow-hidden rounded-lg shadow-md border border-gray-300">
+//           {/* Scrollable Container */}
+//           <div className="max-h-96 overflow-y-auto">
+//             <table className="w-full border-collapse">
+//               {/* Table Header */}
+//               <thead className="sticky top-0 bg-blue-500 text-white uppercase text-sm font-semibold shadow-md">
+//                 <tr>
+//                   <th className="p-4 border border-gray-300 text-center">ID</th>
+//                   <th className="p-4 border border-gray-300 text-center">
+//                     Name
+//                   </th>
+//                   <th className="p-4 border border-gray-300 text-center">
+//                     Email
+//                   </th>
+//                 </tr>
+//               </thead>
+
+//               {/* Table Body */}
+//               <tbody className="bg-white">
+//                 {students.map((student, index) => (
+//                   <tr
+//                     key={student.id}
+//                     className={`border border-gray-300 ${
+//                       index % 2 === 0 ? "bg-gray-50" : "bg-white"
+//                     } hover:bg-gray-100 transition-all`}
+//                   >
+//                     <td className="p-4 border border-gray-300 text-center text-gray-700">
+//                       {index + 1}
+//                     </td>
+//                     <td className="p-4 border border-gray-300 text-center text-gray-700">
+//                       {student.username}
+//                     </td>
+//                     <td className="p-4 border border-gray-300 text-center text-gray-700">
+//                       {student.email}
+//                     </td>
+//                   </tr>
+//                 ))}
+//               </tbody>
+//             </table>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// // Add new QuizPerformance component
+// const QuizPerformance = ({ id }) => {
+//   const [studentSearch, setStudentSearch] = useState("");
+//   const { data, isLoading } = useStudentQuizPerformanceQuery(id);
+
+//   if (isLoading) return <LoadingSpinner />;
+
+//   // Group performance data by student
+//   const groupedData = {};
+//   data?.performanceData?.forEach((entry) => {
+//     if (!groupedData[entry.student]) {
+//       groupedData[entry.student] = {};
+//     }
+//     groupedData[entry.student][entry.quiz] = {
+//       score: entry.score,
+//       total: entry.total,
+//       percentage:
+//         entry.total > 0
+//           ? ((entry.score / entry.total) * 100).toFixed(1) + "%"
+//           : "0%",
+//     };
+//   });
+
+//   // Extract unique quiz names dynamically
+//   const quizNames = [
+//     ...new Set(data?.performanceData.map((entry) => entry.quiz)),
+//   ];
+
+//   // 📌 Export to Excel function
+//   const exportToExcel = () => {
+//     const excelData = Object.keys(groupedData).map((student) => {
+//       const rowData = { Student: student };
+//       quizNames.forEach((quiz) => {
+//         const performance = groupedData[student][quiz];
+//         rowData[quiz] = performance
+//           ? `${performance.score}/${performance.total} (${performance.percentage})`
+//           : "—";
+//       });
+//       return rowData;
+//     });
+
+//     if (excelData.length === 0) {
+//       alert("No data available to export!");
+//       return;
+//     }
+
+//     const worksheet = XLSX.utils.json_to_sheet(excelData);
+//     const workbook = XLSX.utils.book_new();
+//     XLSX.utils.book_append_sheet(workbook, worksheet, "Quiz Performance");
+
+//     XLSX.writeFile(workbook, "Quiz_Performance.xlsx");
+//   };
+
+//   return (
+//     <div>
+//       <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">
+//         Student Quiz Performance
+//       </h2>
+
+//       {/* Search Bar */}
+//       <div className="mb-4">
+//         <input
+//           type="text"
+//           placeholder="Search by student name..."
+//           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+//           value={studentSearch}
+//           onChange={(e) => setStudentSearch(e.target.value)}
+//         />
+//       </div>
+
+//       {/* Performance Table */}
+//       <div className="overflow-x-auto rounded-lg shadow-md border border-gray-300">
+//         <table className="w-full border-collapse">
+//           <thead className="bg-blue-500 text-white uppercase text-sm font-semibold">
+//             <tr>
+//               <th className="p-4 border border-gray-300 text-center">
+//                 Student
+//               </th>
+//               {quizNames.map((quiz, index) => (
+//                 <th
+//                   key={index}
+//                   className="p-4 border border-gray-300 text-center"
+//                 >
+//                   {quiz}
+//                 </th>
+//               ))}
+//             </tr>
+//           </thead>
+//           <tbody className="bg-white">
+//             {Object.keys(groupedData)
+//               .filter((student) =>
+//                 student.toLowerCase().includes(studentSearch.toLowerCase())
+//               )
+//               .map((student, index) => (
+//                 <tr
+//                   key={index}
+//                   className="border border-gray-300 hover:bg-gray-100 transition-all"
+//                 >
+//                   <td className="p-4 border border-gray-300 text-center font-semibold">
+//                     {student}
+//                   </td>
+//                   {quizNames.map((quiz, idx) => {
+//                     const performance = groupedData[student][quiz];
+//                     return (
+//                       <td
+//                         key={idx}
+//                         className="p-4 border border-gray-300 text-center"
+//                       >
+//                         {performance ? (
+//                           <span className="font-bold">
+//                             {performance.score}/{performance.total} (
+//                             {performance.percentage})
+//                           </span>
+//                         ) : (
+//                           <span className="text-gray-400">—</span>
+//                         )}
+//                       </td>
+//                     );
+//                   })}
+//                 </tr>
+//               ))}
+//           </tbody>
+//         </table>
+//       </div>
+
+//       {/* Excel Export Button */}
+//       <div className="relative group w-fit mx-auto mt-6">
+//         <button
+//           onClick={exportToExcel}
+//           className="bg-green-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-green-700 transition transform hover:scale-105 focus:outline-none flex items-center gap-2"
+//         >
+//           <FaFileExcel className="w-5 h-5" />
+//           <span>Export as Excel</span>
+//         </button>
+
+//         {/* Tooltip */}
+//         <div className="absolute left-1/2 transform -translate-x-1/2 -top-12 bg-black text-white text-sm px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition duration-200 whitespace-nowrap">
+//           Download student quiz data as an Excel file 📊
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// const PendingRequests = ({ pendingRequests, onBatchRequest }) => {
+//   return (
+//     <div>
+//       <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">
+//         Pending Requests
+//       </h2>
+
+//       {pendingRequests.length === 0 ? (
+//         <p className="text-gray-500 text-center">No pending requests.</p>
+//       ) : (
+//         <div className="overflow-hidden rounded-lg shadow-md">
+//           {/* Scrollable Container */}
+//           <div className="max-h-96 overflow-y-auto">
+//             <table className="w-full border-collapse">
+//               {/* Table Header */}
+//               <thead className="sticky top-0 bg-blue-500 text-white uppercase text-sm font-semibold shadow-md">
+//                 <tr>
+//                   <th className="p-4 border border-gray-300 text-left">ID</th>
+//                   <th className="p-4 border border-gray-300 text-left">Name</th>
+//                   <th className="p-4 border border-gray-300 text-center">
+//                     Actions
+//                   </th>
+//                 </tr>
+//               </thead>
+
+//               {/* Table Body */}
+//               <tbody className="bg-white">
+//                 {pendingRequests.map((request, index) => (
+//                   <tr
+//                     key={request._id}
+//                     className={`border border-gray-300 ${
+//                       index % 2 === 0 ? "bg-gray-50" : "bg-white"
+//                     } hover:bg-gray-100 transition-all`}
+//                   >
+//                     <td className="p-4 border border-gray-300 text-gray-700">
+//                       {index + 1}
+//                     </td>
+//                     <td className="p-4 border border-gray-300 text-gray-700">
+//                       {request.username}
+//                     </td>
+//                     <td className="p-4 border border-gray-300 flex justify-center gap-3">
+//                       <button
+//                         onClick={() => onBatchRequest(request._id, "approve")}
+//                         className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-all"
+//                       >
+//                         <FaCheckCircle size={18} />
+//                         Approve
+//                       </button>
+//                       <button
+//                         onClick={() => onBatchRequest(request._id, "reject")}
+//                         className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-all"
+//                       >
+//                         <FaTimesCircle size={18} />
+//                         Reject
+//                       </button>
+//                     </td>
+//                   </tr>
+//                 ))}
+//               </tbody>
+//             </table>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// function BatchPage() {
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch();
+
+//   const [showQuizSetup, setShowQuizSetup] = useState(false);
+
+//   const [activeSection, setActiveSection] = useState("Batch Quizzes");
+
+//   const { batchID } = useSelector((state) => state.auth);
+
+//   const { data, isLoading: isBatchLoding } = useBatchDataQuery({
+//     batchId: batchID,
+//   });
+
+//   const batchData = data?.batch;
+
+//   const [batchRequests, requestStatus] = useBatchReqestsMutation();
+
+//   useMutationToast({
+//     ...requestStatus,
+//     successMessage: requestStatus.data?.message,
+//   });
+
+//   const handleBatchRequest = async (studentId, action) => {
+//     try {
+//       const data = {
+//         studentId,
+//         action,
+//       };
+//       await batchRequests({ id: batchData._id, data });
+//     } catch (error) {
+//       console.error("Error handling batch request:", error);
+//     }
+//   };
+
+//   const handleQuiz = (id) => {
+//     dispatch(setQuizID(id));
+//     navigate("/quiz/overview");
+//   };
+
+//   const handleCreateQuiz = () => {
+//     setShowQuizSetup(true);
+//   };
+
+//   if (isBatchLoding) return <LoadingSpinner />;
+
+//   return (
+//     <div className="flex flex-col md:flex-row sm:p-4 lg:p-8 gap-5 bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+//       {/* Left Side */}
+//       <div className="w-full md:w-1/3">
+//         <BatchHeader batchData={batchData} />
+//       </div>
+
+//       {/* Right Side */}
+//       <div className="flex-1 flex flex-col items-center">
+//         {/* Navigation */}
+//         <BatchSidebar
+//           activeSection={activeSection}
+//           setActiveSection={setActiveSection}
+//           sections={sections}
+//         />
+
+//         {/* Active Section */}
+//         <div className="w-full bg-white p-6 rounded-lg shadow-xl">
+//           {activeSection === "Batch Quizzes" && (
+//             <BatchQuizzes
+//               quizzes={batchData.quizzes}
+//               handleQuiz={handleQuiz}
+//               handleCreateQuiz={handleCreateQuiz}
+//             />
+//           )}
+//           {activeSection === "Total Students" && (
+//             <TotalStudents students={batchData.students} />
+//           )}
+//           {activeSection === "Pending Requests" && (
+//             <PendingRequests
+//               pendingRequests={batchData.pendingRequests}
+//               onBatchRequest={handleBatchRequest}
+//             />
+//           )}
+//           {/* Add new section */}
+//           {activeSection === "Quiz Performance" && (
+//             <QuizPerformance id={batchID} />
+//           )}
+//         </div>
+//       </div>
+
+//       {/* Quiz Setup Panel */}
+//       {showQuizSetup && (
+//         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-10">
+//           <ChallengeSetup
+//             onClose={() => setShowQuizSetup(false)}
+//             activeMode={"Quiz"}
+//           />
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default BatchPage;
+
+
+
+
+// new 
+
+
+
+
 /* eslint-disable react/prop-types */
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import {
   FaCalendarAlt,
   FaChartLine,
@@ -28,98 +538,109 @@ import { setQuizID } from "../../redux/reducers/auth";
 import ChallengeSetup from "../host/ChallengeSetup";
 
 const sections = [
-  { name: "Batch Quizzes", icon: <FaUserGraduate size={20} /> },
-  { name: "Total Students", icon: <FaUsers size={20} /> },
-  { name: "Pending Requests", icon: <FaUserPlus size={20} /> },
-  { name: "Quiz Performance", icon: <FaChartLine size={20} /> },
+  { name: "Batch Quizzes", icon: <FaUserGraduate size={18} /> },
+  { name: "Total Students", icon: <FaUsers size={18} /> },
+  { name: "Pending Requests", icon: <FaUserPlus size={18} /> },
+  { name: "Quiz Performance", icon: <FaChartLine size={18} /> },
 ];
 
-const BatchSidebar = ({ activeSection, setActiveSection, sections }) => (
-  <div className="w-full overflow-x-hidden px-4 mb-6">
-    <div className="overflow-x-auto lg:overflow-hidden">
-      <div className="flex justify-center gap-4 min-w-max">
-        {sections.map((section) => (
-          <button
-            key={section.name}
-            onClick={() => setActiveSection(section.name)}
-            className={`px-6 py-3 flex items-center gap-2 rounded-lg text-white font-semibold transition-all shadow-lg whitespace-nowrap ${
-              activeSection === section.name
-                ? "bg-blue-700 scale-105"
-                : "bg-blue-500 hover:bg-blue-600"
-            }`}
-          >
-            {section.icon} {section.name}
-          </button>
-        ))}
+const BatchSidebar = React.memo(function BatchSidebar({
+  activeSection,
+  setActiveSection,
+  sections,
+}) {
+  return (
+    <div className="w-full overflow-x-hidden mb-4">
+      <div className="overflow-x-auto">
+        <div className="flex justify-center gap-3 min-w-max">
+          {sections.map((section) => (
+            <button
+              key={section.name}
+              onClick={() => setActiveSection(section.name)}
+              className={`px-5 py-2.5 flex items-center gap-2 rounded-full text-xs md:text-sm font-medium transition-all shadow-sm whitespace-nowrap border
+                ${
+                  activeSection === section.name
+                    ? "bg-indigo-500 border-indigo-400 text-white shadow-indigo-500/30 scale-[1.03]"
+                    : "bg-slate-900/70 border-slate-700 text-slate-200 hover:bg-slate-800/80"
+                }`}
+            >
+              <span className="text-indigo-300">{section.icon}</span>
+              {section.name}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+});
 
-const BatchQuizzes = ({ quizzes, handleQuiz, handleCreateQuiz }) => {
+const BatchQuizzes = React.memo(function BatchQuizzes({
+  quizzes,
+  handleQuiz,
+  handleCreateQuiz,
+}) {
   return (
     <div>
-      {/* Title */}
-      <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
+      <h2 className="text-xl md:text-2xl font-semibold text-slate-50 text-center mb-6">
         Batch Quizzes
       </h2>
 
-      {/* Quiz Container */}
-      <div className="scrollbar-thin scrollbar-thumb-indigo-300">
-        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="scrollbar-thin scrollbar-thumb-indigo-500/60">
+        <div className="grid gap-5 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
           {/* Create New Quiz Card */}
           <div
-            className="relative bg-gradient-to-br from-indigo-100 to-indigo-50 border-2 border-dashed border-indigo-400 rounded-lg shadow-lg p-6 flex flex-col items-center justify-center cursor-pointer 
-                     hover:shadow-xl hover:bg-indigo-100 transition-all duration-300 transform hover:scale-105 active:scale-95 overflow-hidden"
+            className="relative bg-slate-900/80 border border-dashed border-indigo-500/60 rounded-2xl shadow-md shadow-black/50 p-6 flex flex-col items-center justify-center cursor-pointer hover:border-indigo-400 hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-200 hover:-translate-y-0.5"
             onClick={handleCreateQuiz}
           >
-            <div className="bg-indigo-200 p-4 rounded-full flex items-center justify-center mb-3 transition-all duration-300 hover:bg-indigo-300 shadow-md">
-              <FaPlus className="text-indigo-700 text-5xl" />
+            <div className="bg-indigo-500/15 border border-indigo-400/40 p-4 rounded-full flex items-center justify-center mb-3">
+              <FaPlus className="text-indigo-300 text-3xl" />
             </div>
-            <p className="text-indigo-700 font-semibold text-lg">
+            <p className="text-indigo-100 font-semibold text-base tracking-wide">
               Create New Quiz
             </p>
           </div>
 
           {/* List of Quizzes */}
-          {quizzes.map((quiz) => (
+          {quizzes?.map((quiz) => (
             <div
               key={quiz._id}
-              className="relative bg-white border border-indigo-200 rounded-lg shadow-md p-5 hover:shadow-lg transition-all duration-300 flex flex-col text-center overflow-hidden"
+              className="relative bg-slate-900/80 border border-slate-800 rounded-2xl shadow-md shadow-black/40 p-5 hover:shadow-lg hover:shadow-indigo-500/25 hover:-translate-y-0.5 transition-all duration-200 flex flex-col text-center"
             >
-              {/* Quiz Name */}
-              <button onClick={() => handleQuiz(quiz._id)} className="w-full">
-                <h4 className="text-lg font-semibold text-indigo-700">
+              <button
+                onClick={() => handleQuiz(quiz._id)}
+                className="w-full text-left"
+              >
+                <h4 className="text-lg font-semibold text-slate-50 text-center">
                   {quiz?.name}
                 </h4>
 
-                {/* Start & End Time */}
-                <div className="mt-3 space-y-2 text-gray-600 text-sm">
+                <div className="mt-3 space-y-2 text-slate-300 text-xs md:text-sm">
                   <p className="flex items-center justify-center">
-                    <FaCalendarAlt className="mr-2 text-indigo-600" />
+                    <FaCalendarAlt className="mr-2 text-indigo-400" />
                     <span>
-                      <strong>Start:</strong>{" "}
-                      {moment(quiz?.startTime).format("DD MMM YYYY, hh:mm A")}
+                      <strong className="text-slate-100">Start:</strong>{" "}
+                      {moment(quiz?.startTime).format(
+                        "DD MMM YYYY, hh:mm A"
+                      )}
                     </span>
                   </p>
                   <p className="flex items-center justify-center">
-                    <FaCalendarAlt className="mr-2 text-indigo-600" />
+                    <FaCalendarAlt className="mr-2 text-indigo-400" />
                     <span>
-                      <strong>End:</strong>{" "}
+                      <strong className="text-slate-100">End:</strong>{" "}
                       {moment(quiz?.endTime).format("DD MMM YYYY, hh:mm A")}
                     </span>
                   </p>
                 </div>
 
-                {/* Problems & Participants */}
-                <div className="flex items-center justify-between mt-4 text-gray-700 text-sm">
+                <div className="flex items-center justify-between mt-4 text-slate-200 text-xs md:text-sm">
                   <p className="flex items-center">
-                    <FaTasks className="mr-2 text-blue-500" />
-                    <span>{quiz?.questions?.length} Problems</span>
+                    <FaTasks className="mr-2 text-indigo-400" />
+                    <span>{quiz?.questions?.length || 0} Problems</span>
                   </p>
                   <p className="flex items-center">
-                    <FaUsers className="mr-2 text-green-500" />
-                    <span>{quiz.participants?.length} Participants</span>
+                    <FaUsers className="mr-2 text-emerald-400" />
+                    <span>{quiz?.participants?.length || 0} Participants</span>
                   </p>
                 </div>
               </button>
@@ -129,51 +650,52 @@ const BatchQuizzes = ({ quizzes, handleQuiz, handleCreateQuiz }) => {
       </div>
     </div>
   );
-};
+});
 
-const TotalStudents = ({ students }) => {
+const TotalStudents = React.memo(function TotalStudents({ students }) {
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">
-        Total Students: {students.length}
+      <h2 className="text-xl md:text-2xl font-semibold mb-4 text-slate-50 text-center">
+        Total Students: {students?.length || 0}
       </h2>
 
-      {students.length === 0 ? (
-        <p className="text-gray-500 text-center">No Student in this Batch.</p>
+      {students?.length === 0 ? (
+        <p className="text-slate-400 text-center">No student in this batch.</p>
       ) : (
-        <div className="overflow-hidden rounded-lg shadow-md border border-gray-300">
-          {/* Scrollable Container */}
-          <div className="max-h-96 overflow-y-auto">
-            <table className="w-full border-collapse">
-              {/* Table Header */}
-              <thead className="sticky top-0 bg-blue-500 text-white uppercase text-sm font-semibold shadow-md">
+        <div className="overflow-hidden rounded-2xl shadow-md shadow-black/40 border border-slate-800 bg-slate-950/60">
+          <div className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
+            <table className="w-full border-collapse text-sm">
+              <thead className="sticky top-0 bg-slate-950 text-slate-100 uppercase text-xs font-semibold shadow-md shadow-black/40">
                 <tr>
-                  <th className="p-4 border border-gray-300 text-center">ID</th>
-                  <th className="p-4 border border-gray-300 text-center">
+                  <th className="p-3 border-b border-slate-800 text-center">
+                    ID
+                  </th>
+                  <th className="p-3 border-b border-slate-800 text-center">
                     Name
                   </th>
-                  <th className="p-4 border border-gray-300 text-center">
+                  <th className="p-3 border-b border-slate-800 text-center">
                     Email
                   </th>
                 </tr>
               </thead>
 
-              {/* Table Body */}
-              <tbody className="bg-white">
+              <tbody>
                 {students.map((student, index) => (
                   <tr
-                    key={student.id}
-                    className={`border border-gray-300 ${
-                      index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                    } hover:bg-gray-100 transition-all`}
+                    key={student.id || student._id || index}
+                    className={`border-b border-slate-800 ${
+                      index % 2 === 0
+                        ? "bg-slate-900/70"
+                        : "bg-slate-900/40"
+                    } hover:bg-slate-800/80 transition-colors`}
                   >
-                    <td className="p-4 border border-gray-300 text-center text-gray-700">
+                    <td className="p-3 text-center text-slate-100">
                       {index + 1}
                     </td>
-                    <td className="p-4 border border-gray-300 text-center text-gray-700">
+                    <td className="p-3 text-center text-slate-100">
                       {student.username}
                     </td>
-                    <td className="p-4 border border-gray-300 text-center text-gray-700">
+                    <td className="p-3 text-center text-slate-300">
                       {student.email}
                     </td>
                   </tr>
@@ -185,38 +707,38 @@ const TotalStudents = ({ students }) => {
       )}
     </div>
   );
-};
+});
 
-// Add new QuizPerformance component
-const QuizPerformance = ({ id }) => {
+const QuizPerformance = React.memo(function QuizPerformance({ id }) {
   const [studentSearch, setStudentSearch] = useState("");
   const { data, isLoading } = useStudentQuizPerformanceQuery(id);
 
-  if (isLoading) return <LoadingSpinner />;
+  const performanceData = data?.performanceData || [];
 
-  // Group performance data by student
-  const groupedData = {};
-  data?.performanceData?.forEach((entry) => {
-    if (!groupedData[entry.student]) {
-      groupedData[entry.student] = {};
-    }
-    groupedData[entry.student][entry.quiz] = {
-      score: entry.score,
-      total: entry.total,
-      percentage:
-        entry.total > 0
-          ? ((entry.score / entry.total) * 100).toFixed(1) + "%"
-          : "0%",
-    };
-  });
+  const groupedData = useMemo(() => {
+    const grouped = {};
+    performanceData.forEach((entry) => {
+      if (!grouped[entry.student]) {
+        grouped[entry.student] = {};
+      }
+      grouped[entry.student][entry.quiz] = {
+        score: entry.score,
+        total: entry.total,
+        percentage:
+          entry.total > 0
+            ? ((entry.score / entry.total) * 100).toFixed(1) + "%"
+            : "0%",
+      };
+    });
+    return grouped;
+  }, [performanceData]);
 
-  // Extract unique quiz names dynamically
-  const quizNames = [
-    ...new Set(data?.performanceData.map((entry) => entry.quiz)),
-  ];
+  const quizNames = useMemo(
+    () => [...new Set(performanceData.map((entry) => entry.quiz))],
+    [performanceData]
+  );
 
-  // 📌 Export to Excel function
-  const exportToExcel = () => {
+  const exportToExcel = useCallback(() => {
     const excelData = Object.keys(groupedData).map((student) => {
       const rowData = { Student: student };
       quizNames.forEach((quiz) => {
@@ -236,56 +758,57 @@ const QuizPerformance = ({ id }) => {
     const worksheet = XLSX.utils.json_to_sheet(excelData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Quiz Performance");
-
     XLSX.writeFile(workbook, "Quiz_Performance.xlsx");
-  };
+  }, [groupedData, quizNames]);
+
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">
+      <h2 className="text-xl md:text-2xl font-semibold mb-4 text-slate-50 text-center">
         Student Quiz Performance
       </h2>
 
-      {/* Search Bar */}
       <div className="mb-4">
         <input
           type="text"
           placeholder="Search by student name..."
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2.5 bg-slate-900/80 border border-slate-700 rounded-xl text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
           value={studentSearch}
           onChange={(e) => setStudentSearch(e.target.value)}
         />
       </div>
 
-      {/* Performance Table */}
-      <div className="overflow-x-auto rounded-lg shadow-md border border-gray-300">
-        <table className="w-full border-collapse">
-          <thead className="bg-blue-500 text-white uppercase text-sm font-semibold">
+      <div className="overflow-x-auto rounded-2xl shadow-md shadow-black/40 border border-slate-800 bg-slate-950/70">
+        <table className="w-full border-collapse text-xs md:text-sm">
+          <thead className="bg-slate-950 text-slate-100 uppercase text-xs font-semibold">
             <tr>
-              <th className="p-4 border border-gray-300 text-center">
+              <th className="p-3 border-b border-slate-800 text-center">
                 Student
               </th>
               {quizNames.map((quiz, index) => (
                 <th
                   key={index}
-                  className="p-4 border border-gray-300 text-center"
+                  className="p-3 border-b border-slate-800 text-center"
                 >
                   {quiz}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white">
+          <tbody>
             {Object.keys(groupedData)
               .filter((student) =>
-                student.toLowerCase().includes(studentSearch.toLowerCase())
+                student
+                  .toLowerCase()
+                  .includes(studentSearch.toLowerCase().trim())
               )
               .map((student, index) => (
                 <tr
                   key={index}
-                  className="border border-gray-300 hover:bg-gray-100 transition-all"
+                  className="border-b border-slate-800 hover:bg-slate-900/80 transition-colors"
                 >
-                  <td className="p-4 border border-gray-300 text-center font-semibold">
+                  <td className="p-3 text-center font-semibold text-slate-100">
                     {student}
                   </td>
                   {quizNames.map((quiz, idx) => {
@@ -293,15 +816,15 @@ const QuizPerformance = ({ id }) => {
                     return (
                       <td
                         key={idx}
-                        className="p-4 border border-gray-300 text-center"
+                        className="p-3 text-center text-slate-200"
                       >
                         {performance ? (
-                          <span className="font-bold">
+                          <span className="font-semibold text-emerald-300">
                             {performance.score}/{performance.total} (
                             {performance.percentage})
                           </span>
                         ) : (
-                          <span className="text-gray-400">—</span>
+                          <span className="text-slate-500">—</span>
                         )}
                       </td>
                     );
@@ -312,78 +835,84 @@ const QuizPerformance = ({ id }) => {
         </table>
       </div>
 
-      {/* Excel Export Button */}
       <div className="relative group w-fit mx-auto mt-6">
         <button
           onClick={exportToExcel}
-          className="bg-green-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-green-700 transition transform hover:scale-105 focus:outline-none flex items-center gap-2"
+          className="bg-emerald-600 text-white px-4 py-2.5 rounded-full shadow-md shadow-emerald-500/30 hover:bg-emerald-500 transition-transform hover:-translate-y-0.5 text-sm font-medium flex items-center gap-2"
         >
-          <FaFileExcel className="w-5 h-5" />
+          <FaFileExcel className="w-4 h-4" />
           <span>Export as Excel</span>
         </button>
 
-        {/* Tooltip */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 -top-12 bg-black text-white text-sm px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition duration-200 whitespace-nowrap">
-          Download student quiz data as an Excel file 📊
+        <div className="absolute left-1/2 transform -translate-x-1/2 -top-11 bg-black/90 text-white text-xs px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition duration-200 whitespace-nowrap">
+          Download student quiz data as an Excel file
         </div>
       </div>
     </div>
   );
-};
+});
 
-const PendingRequests = ({ pendingRequests, onBatchRequest }) => {
+const PendingRequests = React.memo(function PendingRequests({
+  pendingRequests,
+  onBatchRequest,
+}) {
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">
+      <h2 className="text-xl md:text-2xl font-semibold mb-4 text-slate-50 text-center">
         Pending Requests
       </h2>
 
-      {pendingRequests.length === 0 ? (
-        <p className="text-gray-500 text-center">No pending requests.</p>
+      {pendingRequests?.length === 0 ? (
+        <p className="text-slate-400 text-center">No pending requests.</p>
       ) : (
-        <div className="overflow-hidden rounded-lg shadow-md">
-          {/* Scrollable Container */}
-          <div className="max-h-96 overflow-y-auto">
-            <table className="w-full border-collapse">
-              {/* Table Header */}
-              <thead className="sticky top-0 bg-blue-500 text-white uppercase text-sm font-semibold shadow-md">
+        <div className="overflow-hidden rounded-2xl shadow-md shadow-black/40 bg-slate-950/70 border border-slate-800">
+          <div className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
+            <table className="w-full border-collapse text-sm">
+              <thead className="sticky top-0 bg-slate-950 text-slate-100 uppercase text-xs font-semibold shadow-md shadow-black/40">
                 <tr>
-                  <th className="p-4 border border-gray-300 text-left">ID</th>
-                  <th className="p-4 border border-gray-300 text-left">Name</th>
-                  <th className="p-4 border border-gray-300 text-center">
+                  <th className="p-3 border-b border-slate-800 text-left">
+                    ID
+                  </th>
+                  <th className="p-3 border-b border-slate-800 text-left">
+                    Name
+                  </th>
+                  <th className="p-3 border-b border-slate-800 text-center">
                     Actions
                   </th>
                 </tr>
               </thead>
 
-              {/* Table Body */}
-              <tbody className="bg-white">
+              <tbody>
                 {pendingRequests.map((request, index) => (
                   <tr
                     key={request._id}
-                    className={`border border-gray-300 ${
-                      index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                    } hover:bg-gray-100 transition-all`}
+                    className={`border-b border-slate-800 ${
+                      index % 2 === 0
+                        ? "bg-slate-900/70"
+                        : "bg-slate-900/40"
+                    } hover:bg-slate-800/80 transition-colors`}
                   >
-                    <td className="p-4 border border-gray-300 text-gray-700">
-                      {index + 1}
-                    </td>
-                    <td className="p-4 border border-gray-300 text-gray-700">
+                    <td className="p-3 text-slate-100">{index + 1}</td>
+                    <td className="p-3 text-slate-100">
                       {request.username}
                     </td>
-                    <td className="p-4 border border-gray-300 flex justify-center gap-3">
+                    <td className="p-3 flex justify-center gap-2 md:gap-3">
                       <button
-                        onClick={() => onBatchRequest(request._id, "approve")}
-                        className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-all"
+                        onClick={() =>
+                          onBatchRequest(request._id, "approve")
+                        }
+                        className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
                       >
-                        <FaCheckCircle size={18} />
+                        <FaCheckCircle size={14} />
                         Approve
                       </button>
                       <button
-                        onClick={() => onBatchRequest(request._id, "reject")}
-                        className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-all"
+                        onClick={() =>
+                          onBatchRequest(request._id, "reject")
+                        }
+                        className="flex items-center gap-1.5 bg-rose-600 hover:bg-rose-500 text-white px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
                       >
-                        <FaTimesCircle size={18} />
+                        <FaTimesCircle size={14} />
                         Reject
                       </button>
                     </td>
@@ -396,23 +925,22 @@ const PendingRequests = ({ pendingRequests, onBatchRequest }) => {
       )}
     </div>
   );
-};
+});
 
 function BatchPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [showQuizSetup, setShowQuizSetup] = useState(false);
-
   const [activeSection, setActiveSection] = useState("Batch Quizzes");
 
   const { batchID } = useSelector((state) => state.auth);
 
-  const { data, isLoading: isBatchLoding } = useBatchDataQuery({
+  const { data, isLoading: isBatchLoading } = useBatchDataQuery({
     batchId: batchID,
   });
 
-  const batchData = data?.batch;
+  const batchData = data?.batch || {};
 
   const [batchRequests, requestStatus] = useBatchReqestsMutation();
 
@@ -421,64 +949,67 @@ function BatchPage() {
     successMessage: requestStatus.data?.message,
   });
 
-  const handleBatchRequest = async (studentId, action) => {
-    try {
-      const data = {
-        studentId,
-        action,
-      };
-      await batchRequests({ id: batchData._id, data });
-    } catch (error) {
-      console.error("Error handling batch request:", error);
-    }
-  };
+  const handleBatchRequest = useCallback(
+    async (studentId, action) => {
+      try {
+        if (!batchData?._id) return;
+        const payload = { studentId, action };
+        await batchRequests({ id: batchData._id, data: payload });
+      } catch (error) {
+        console.error("Error handling batch request:", error);
+      }
+    },
+    [batchRequests, batchData?._id]
+  );
 
-  const handleQuiz = (id) => {
-    dispatch(setQuizID(id));
-    navigate("/quiz/overview");
-  };
+  const handleQuiz = useCallback(
+    (id) => {
+      dispatch(setQuizID(id));
+      navigate("/quiz/overview");
+    },
+    [dispatch, navigate]
+  );
 
-  const handleCreateQuiz = () => {
+  const handleCreateQuiz = useCallback(() => {
     setShowQuizSetup(true);
-  };
+  }, []);
 
-  if (isBatchLoding) return <LoadingSpinner />;
+  if (isBatchLoading) return <LoadingSpinner />;
 
   return (
-    <div className="flex flex-col md:flex-row sm:p-4 lg:p-8 gap-5 bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div className="flex flex-col md:flex-row sm:p-4 lg:p-8 gap-5 bg-[#050816] min-h-screen text-slate-100">
       {/* Left Side */}
-      <div className="w-full md:w-1/3">
-        <BatchHeader batchData={batchData} />
+      <div className="w-full md:w-1/3 mb-4 md:mb-0">
+        <div className="bg-slate-950/80 border border-slate-800 rounded-2xl shadow-xl shadow-black/60 backdrop-blur-md h-full">
+          <BatchHeader batchData={batchData} />
+        </div>
       </div>
 
       {/* Right Side */}
       <div className="flex-1 flex flex-col items-center">
-        {/* Navigation */}
         <BatchSidebar
           activeSection={activeSection}
           setActiveSection={setActiveSection}
           sections={sections}
         />
 
-        {/* Active Section */}
-        <div className="w-full bg-white p-6 rounded-lg shadow-xl">
+        <div className="w-full bg-slate-950/85 border border-slate-800 p-5 md:p-6 rounded-2xl shadow-2xl shadow-black/70 backdrop-blur-md">
           {activeSection === "Batch Quizzes" && (
             <BatchQuizzes
-              quizzes={batchData.quizzes}
+              quizzes={batchData.quizzes || []}
               handleQuiz={handleQuiz}
               handleCreateQuiz={handleCreateQuiz}
             />
           )}
           {activeSection === "Total Students" && (
-            <TotalStudents students={batchData.students} />
+            <TotalStudents students={batchData.students || []} />
           )}
           {activeSection === "Pending Requests" && (
             <PendingRequests
-              pendingRequests={batchData.pendingRequests}
+              pendingRequests={batchData.pendingRequests || []}
               onBatchRequest={handleBatchRequest}
             />
           )}
-          {/* Add new section */}
           {activeSection === "Quiz Performance" && (
             <QuizPerformance id={batchID} />
           )}
@@ -487,11 +1018,13 @@ function BatchPage() {
 
       {/* Quiz Setup Panel */}
       {showQuizSetup && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-10">
-          <ChallengeSetup
-            onClose={() => setShowQuizSetup(false)}
-            activeMode={"Quiz"}
-          />
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-10">
+          <div className="w-full max-w-4xl mx-4">
+            <ChallengeSetup
+              onClose={() => setShowQuizSetup(false)}
+              activeMode={"Quiz"}
+            />
+          </div>
         </div>
       )}
     </div>
@@ -499,6 +1032,3 @@ function BatchPage() {
 }
 
 export default BatchPage;
-
-
-
