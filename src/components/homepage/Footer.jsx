@@ -90,7 +90,7 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="mt-16 border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
           <div className="mb-4 md:mb-0">
-            © 2025 Codenest. All Rights Reserved.
+            © 2026 Codenest. All Rights Reserved.
           </div>
           <div className="flex space-x-6">
             <a href="#privacy" className="hover:underline focus:underline focus:outline-none">
